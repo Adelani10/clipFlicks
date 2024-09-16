@@ -18,20 +18,28 @@ const VideoCard = ({
 }: videoCardInterface) => {
   const [play, setPlay] = useState<boolean>(false);
 
-  console.log(play)
+  console.log(play);
 
   return (
     <View className="gap-y-2 mt-5">
       <View className="flex flex-row items-center justify-between">
-        <View className="w-full max-w-[85%]">
-          <Text className="text-white font-bold text-sm">{title}...</Text>
+        <View className="w-full flex flex-row items-center gap-x-2">
+          <View className="flex justify-center items-center bg-pink-600 border-2 rounded-md w-9 border-sky-600 h-9">
+            {/* <Text className=" uppercase font-bold text-lg text-white">b</Text> */}
+            <Text className=" uppercase font-bold text-lg text-white">{title.slice(0, 1)}</Text>
 
-          <Text
-            numberOfLines={1}
-            className="text-gray-100 font-semibold text-xs"
-          >
-            Bimbo
-          </Text>
+          </View>
+
+          <View className="w-full max-w-[85%]">
+            <Text className="text-white font-bold text-sm">{title}...</Text>
+
+            <Text
+              numberOfLines={1}
+              className="text-gray-100 font-semibold text-xs"
+            >
+              Bimbo
+            </Text>
+          </View>
         </View>
 
         <Image source={icons.menu} resizeMode="contain" className="h-5" />
@@ -40,7 +48,7 @@ const VideoCard = ({
       <View className="w-full  rounded-xl h-48">
         {play ? (
           <Video
-            source={{ uri: video }}
+            source={require("../assets/mainVids/HanksDeath_BreakingBad.mp4")}
             className="rounded-lg w-full border border-white h-full"
             resizeMode={ResizeMode.CONTAIN}
             shouldPlay

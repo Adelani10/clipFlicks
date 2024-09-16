@@ -22,7 +22,7 @@ const SignUp = () => {
   return (
     <SafeAreaView className="bg-primary ">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View className="flex pt-10 items-center h-full px-10">
+        <View className="flex pt-10 items-center h-full px-6">
           <View className="flex flex-row items-center mb-10 self-start  gap-x-2">
             <Image
               source={images.logoSmall}
