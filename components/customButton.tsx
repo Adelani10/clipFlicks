@@ -13,7 +13,7 @@ const CustomButton = ({ title, handlePress, isLoading }: buttonProps) => {
       onPress={handlePress}
       disabled={isLoading}
       activeOpacity={0.7}
-      className={`${isLoading ? "bg-pink-900" : "bg-pink-600"} rounded-lg  mt-12 p-3 w-full`}
+      className={`${isLoading ? "bg-pink-900" : "bg-pink-600"} rounded-lg mt-12 p-3 w-full`}
     >
         <Text className="text-lg text-center text-white tracking-wide font-semibold">{title}</Text>
     </TouchableOpacity>
