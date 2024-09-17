@@ -11,8 +11,9 @@ const VideoCard = ({ item }: any) => {
 
   const bookmarkVideo = async () => {
     try {
-      const bookmarkedVideo = await axios.put(
-        `https://videosappapi-1.onrender.com/api/v1/bookmark/${item.cfId}`
+      await axios.put(
+        `https://videosappapi-1.onrender.com/api/v1/bookmark/${item.cfId}`,
+        item
       );
     } catch (error: any) {
       Alert.alert("Error", error.message);
@@ -21,8 +22,9 @@ const VideoCard = ({ item }: any) => {
 
   const removeBookmark = async () => {
     try {
-      const bookmarkedVideo = await axios.put(
-        `https://videosappapi-1.onrender.com/api/v1/remove_bookmark/${item.cfId}`
+      await axios.put(
+        `https://videosappapi-1.onrender.com/api/v1/remove_bookmark/${item.cfId}`,
+        item
       );
     } catch (error: any) {
       Alert.alert("Error", error.message);
@@ -56,8 +58,8 @@ const VideoCard = ({ item }: any) => {
         {!bookmarked ? (
           <TouchableOpacity
             onPress={() => {
-              removeBookmark();
               setBookmarked(false);
+              removeBookmark();
             }}
             className=" inline-block"
           >
@@ -66,8 +68,8 @@ const VideoCard = ({ item }: any) => {
         ) : (
           <TouchableOpacity
             onPress={() => {
-              bookmarkVideo();
               setBookmarked(true);
+              bookmarkVideo();
             }}
           >
             <Icon name="heart" size={30} color="#ff007f" />
