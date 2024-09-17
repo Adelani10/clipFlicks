@@ -46,68 +46,56 @@ const Home = () => {
     await refetch();
   };
 
-  console.log(posts);
   return (
     <SafeAreaView className="bg-primary">
-      <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View className="flex pt-10 h-full px-6">
-          <FlatList
-            data={posts}
-            keyExtractor={(item) => item.cfId}
-            renderItem={({ item }) => {
-              return (
-                <VideoCard
-                  title={item.title}
-                  thumbnail={item.thumbnail}
-                  video={item.video}
-                  creator={item.creator}
-                />
-              );
-            }}
-            ListEmptyComponent={() => {
-              return (
-                <EmptyState
-                  title="No videos found"
-                  subtitle="No videos found in Explore"
-                />
-              );
-            }}
-            ListHeaderComponent={() => {
-              return (
-                <View className="flex gap-y-3">
-                  <View className="flex flex-row items-center  justify-between">
-                    <View className="flex">
-                      <Text className="text-gray-100 text-xs">
-                        Welcome Back,
-                      </Text>
-                      <Text className="text-white font-bold text-xl">
-                        LaniPlayDirty
-                      </Text>
-                    </View>
-
-                    <Image
-                      source={images.logoSmall}
-                      resizeMode="contain"
-                      className=""
-                    />
+      <View className="flex pt-10 h-full px-6">
+        <FlatList
+          data={posts}
+          keyExtractor={(item) => item.cfId}
+          renderItem={({ item }) => {
+            return <VideoCard item={item} />;
+          }}
+          ListEmptyComponent={() => {
+            return (
+              <EmptyState
+                title="No videos found"
+                subtitle="No videos found in Explore"
+              />
+            );
+          }}
+          ListHeaderComponent={() => {
+            return (
+              <View className="flex gap-y-3">
+                <View className="flex flex-row items-center  justify-between">
+                  <View className="flex">
+                    <Text className="text-gray-100 text-xs">Welcome Back,</Text>
+                    <Text className="text-white font-bold text-xl">
+                      LaniPlayDirty
+                    </Text>
                   </View>
 
-                  <SearchInput
-                    value={query}
-                    handleChangeText={(event: any) => setQuery(event?.target)}
-                    placeholder="Search for a video"
+                  <Image
+                    source={images.logoSmall}
+                    resizeMode="contain"
+                    className=""
                   />
-
-                  <Trending posts={posts} />
                 </View>
-              );
-            }}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-          />
-        </View>
-      </ScrollView>
+
+                <SearchInput
+                  value={query}
+                  handleChangeText={(event: any) => setQuery(event?.target)}
+                  placeholder="Search for a video"
+                />
+
+                {/* <Trending posts={posts} /> */}
+              </View>
+            );
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 };

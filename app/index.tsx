@@ -57,7 +57,6 @@ const index = () => {
 
       <StatusBar style="light"  />
 
-      <StatusBar style="light" backgroundColor="#ffffff" />
     </SafeAreaView>
   );
 };
