@@ -2,20 +2,20 @@ import { View, Image, TextInput, TouchableOpacity, Alert } from "react-native";
 import React, { useState } from "react";
 import { icons } from "@/constants";
 import { router, usePathname } from "expo-router";
+import { useVideoContext } from "@/context";
 
-const SearchInput = ({initialQuery}: any) => {
+const SearchInput = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [query, setQuery] = useState<any>(initialQuery || "");
+  const {query, setQuery, videoSearch} = useVideoContext()
   const pathname = usePathname();
 
-  console.log(query)
   return (
     <View className="w-full mt-6 relative">
       <TextInput
         value={query}
         placeholder={"Search for video"}
-        placeholderTextColor="#fff"
-        onChangeText={(event: any) => setQuery(event.target)}
+        placeholderTextColor="#cdcde0"
+        onChangeText={(e: any) => setQuery(e)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={` ${
@@ -24,7 +24,7 @@ const SearchInput = ({initialQuery}: any) => {
       />
 
       <TouchableOpacity
-        onPress={() => {
+        onPress={async () => {
           if (!query) {
             return Alert.alert(
               "Missing query",
@@ -35,6 +35,11 @@ const SearchInput = ({initialQuery}: any) => {
             router.setParams({ query });
           } else {
             router.push(`/search/${query}`);
+          }
+          try {
+            await videoSearch();
+          } catch (error) {
+            Alert.alert("No videos", "Videos not found");
           }
         }}
         className="w-5 absolute top-3.5 right-4 h-5"

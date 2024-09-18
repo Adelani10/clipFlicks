@@ -1,55 +1,47 @@
-// import { createContext, useContext, useState, useEffect } from "react";
-// import axios from "axios";
+import React, { createContext, useContext, useState } from "react";
+import axios from "axios";
 
-// interface postsInterface {
-//   id: any;
-//   cfId: number;
-//   title: string;
-//   prompt: string;
-//   thumbnail: string;
-//   video: string;
-//   creator: any;
-// }
 
-// interface VideoContextInterface {
-//   posts: postsInterface[] | null;
-//   setPosts: any | null;
-// }
+interface VideoContextInterface {
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  query: string;
+  queryResults: any[];
+  videoSearch: () => Promise<void>;
+}
 
-// const VideoContext: any = createContext<VideoContextInterface | null>(null);
+const VideoContext = createContext<VideoContextInterface | null>(null);
 
-// export const useVideoContext: any = () => useContext(VideoContext);
+export const useVideoContext = () => {
+  const context = useContext(VideoContext);
+  if (!context) {
+    throw new Error("useVideoContext must be used within a VideoProvider");
+  }
+  return context;
+};
 
-// const VideoProvider = ({ children }: any) => {
-//   const [posts, setPosts] = useState<VideoContextInterface[] | null>();
+const VideoProvider = ({ children }: any) => {
+  const [query, setQuery] = useState<string>("");
+  const [queryResults, setQueryResults] = useState<any[]>([]); 
 
-//   const fetchPosts = async () => {
-//     try {
-//       const response = await axios.get(
-//         "https://videosappapi-1.onrender.com/api/v1/videos"
-//       );
-//       //   setPosts(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  const videoSearch = async (): Promise<void> => {
+    const results = await axios.get(
+      `https://videosappapi-1.onrender.com/api/v1/videos/search/${query}`
+    );
+    setQueryResults(results.data);
+  };
 
-//   useEffect(() => {
-//     fetchPosts();
-//   }, [posts]);
+  return (
+    <VideoContext.Provider
+      value={{
+        query,
+        setQuery,
+        queryResults,
+        videoSearch,
+      }}
+    >
+      {children}
+    </VideoContext.Provider>
+  );
+};
 
-//   return (
-//     <VideoContext.Provider
-//       value={{
-//         posts,
-//         setPosts,
-//       }}
-//     >
-//       {children}
-//     </VideoContext.Provider>
-//   );
-// };
-
-// export default VideoProvider;
-
-// // exp://127.0.0.1:8081
+export default VideoProvider;

@@ -5,28 +5,20 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import VideoCard from "@/components/videoCard";
 import EmptyState from "@/components/emptyState";
 import SearchInput from "@/components/searchInput";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
+import { useVideoContext } from "@/context";
 
 const Search = () => {
-  const { query } = useLocalSearchParams();
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const {query} = useLocalSearchParams()
+  
+  const {queryResults} = useVideoContext()
 
-  const searchForVideos = async () => {
-    const results = await axios.get(
-      `https://videosappapi-1.onrender.com/api/v1/videos/search/${query}`
-    );
-    setSearchResults(results.data);
-  };
-
-  useEffect(() => {
-    searchForVideos()
-  }, [query])
 
   return (
     <SafeAreaView className="bg-primary">
       <View className="flex pt-10 h-full px-6">
         <FlatList
-          data={searchResults}
+          data={queryResults}
           keyExtractor={(item) => item.cfId}
           renderItem={({ item }) => {
             return <VideoCard item={item} />;
@@ -34,8 +26,12 @@ const Search = () => {
           ListEmptyComponent={() => {
             return (
               <EmptyState
-                title="No videos found"
-                subtitle="No videos found in Explore"
+                title="No videos found with that keyword"
+                subtitle="No videos found"
+                handlePress={()=>{
+                  router.push("/home")
+                }}
+                buttonText="Go back Home"
               />
             );
           }}
@@ -53,7 +49,7 @@ const Search = () => {
                   </View>
                 </View>
 
-                <SearchInput initialQuery={query} />
+                <SearchInput />
               </View>
             );
           }}

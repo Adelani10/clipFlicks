@@ -15,9 +15,9 @@ import Trending from "@/components/trending";
 import EmptyState from "@/components/emptyState";
 import axios from "axios";
 import VideoCard from "@/components/videoCard";
+import { router } from "expo-router";
 
 const Home = () => {
-  const [query, setQuery] = useState<String>("");
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [posts, setPosts] = useState<any[] | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -60,6 +60,8 @@ const Home = () => {
               <EmptyState
                 title="No videos found"
                 subtitle="No videos found in Explore"
+                buttonText="Go to bookmarks"
+                handlePress={() => router.push("/bookmark")}
               />
             );
           }}
@@ -81,11 +83,7 @@ const Home = () => {
                   />
                 </View>
 
-                <SearchInput
-                  value={query}
-                  handleChangeText={(event: any) => setQuery(event?.target)}
-                  placeholder="Search for a video"
-                />
+                <SearchInput />
 
                 {/* <Trending posts={posts} /> */}
               </View>

@@ -1,10 +1,10 @@
 import React from "react";
 import { Stack } from "expo-router";
-// import VideoProvider from "@/context";
+import VideoProvider from "@/context";
 
 const RootLayout = () => {
   return (
-    // <VideoProvider>
+    <VideoProvider>
     <Stack>
       <Stack.Screen
         name="index"
