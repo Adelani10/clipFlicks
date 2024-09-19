@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
-
 interface VideoContextInterface {
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   query: string;
@@ -21,7 +20,7 @@ export const useVideoContext = () => {
 
 const VideoProvider = ({ children }: any) => {
   const [query, setQuery] = useState<string>("");
-  const [queryResults, setQueryResults] = useState<any[]>([]); 
+  const [queryResults, setQueryResults] = useState<any[]>([]);
 
   const videoSearch = async (): Promise<void> => {
     const results = await axios.get(

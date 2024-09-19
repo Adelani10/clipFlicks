@@ -1,6 +1,4 @@
-import { View, Text, FlatList,} from "react-native";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { View, Text, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import VideoCard from "@/components/videoCard";
 import EmptyState from "@/components/emptyState";
@@ -9,10 +7,11 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useVideoContext } from "@/context";
 
 const Search = () => {
-  const {query} = useLocalSearchParams()
-  
-  const {queryResults} = useVideoContext()
+  const { query } = useLocalSearchParams();
 
+  const { queryResults } = useVideoContext();
+
+  console.log(queryResults)
 
   return (
     <SafeAreaView className="bg-primary">
@@ -21,15 +20,15 @@ const Search = () => {
           data={queryResults}
           keyExtractor={(item) => item.cfId}
           renderItem={({ item }) => {
-            return <VideoCard item={item} />;
+            return <VideoCard key={item.cfId} item={item} />;
           }}
           ListEmptyComponent={() => {
             return (
               <EmptyState
                 title="No videos found with that keyword"
                 subtitle="No videos found"
-                handlePress={()=>{
-                  router.push("/home")
+                handlePress={() => {
+                  router.push("/home");
                 }}
                 buttonText="Go back Home"
               />

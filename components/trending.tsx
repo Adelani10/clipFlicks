@@ -16,7 +16,6 @@ const zoomOut: any = { 0: { scale: 1 }, 1: { scale: 0.9 } };
 
 const TrendingItem = ({ activeItem, item }: any) => {
 
-  // console.log(item)
   console.log(activeItem)
   const [play, setPlay] = useState<boolean>(false);
   return (
