@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  ScrollView,
   FlatList,
   Image,
   RefreshControl,

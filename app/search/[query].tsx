@@ -5,19 +5,20 @@ import EmptyState from "@/components/emptyState";
 import SearchInput from "@/components/searchInput";
 import { router, useLocalSearchParams } from "expo-router";
 import { useVideoContext } from "@/context";
+import React, { useMemo } from "react";
 
 const Search = () => {
   const { query } = useLocalSearchParams();
-
   const { queryResults } = useVideoContext();
 
-  console.log(queryResults)
+  // Memoizing the queryResults so it doesn't cause unnecessary re-renders
+  const memoizedQueryResults = useMemo(() => queryResults, [queryResults]);
 
   return (
     <SafeAreaView className="bg-primary">
       <View className="flex pt-10 h-full px-6">
         <FlatList
-          data={queryResults}
+          data={memoizedQueryResults}
           keyExtractor={(item) => item.cfId}
           renderItem={({ item }) => {
             return <VideoCard key={item.cfId} item={item} />;

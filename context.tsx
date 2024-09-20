@@ -2,10 +2,8 @@ import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
 interface VideoContextInterface {
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
-  query: string;
   queryResults: any[];
-  videoSearch: () => Promise<void>;
+  videoSearch: any;
 }
 
 const VideoContext = createContext<VideoContextInterface | null>(null);
@@ -19,10 +17,9 @@ export const useVideoContext = () => {
 };
 
 const VideoProvider = ({ children }: any) => {
-  const [query, setQuery] = useState<string>("");
   const [queryResults, setQueryResults] = useState<any[]>([]);
 
-  const videoSearch = async (): Promise<void> => {
+  const videoSearch = async (query: string) => {
     const results = await axios.get(
       `https://videosappapi-1.onrender.com/api/v1/videos/search/${query}`
     );
@@ -32,8 +29,6 @@ const VideoProvider = ({ children }: any) => {
   return (
     <VideoContext.Provider
       value={{
-        query,
-        setQuery,
         queryResults,
         videoSearch,
       }}

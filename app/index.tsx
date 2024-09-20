@@ -48,14 +48,14 @@ const index = () => {
           </View>
 
           <Text className=" text-[#cdcde0] text-center ">
-            Where Creativity meets Innovation: Embark on a journey of limitless Exploration with ClipFlicks.
+            Where Nolstagia meets Innovation: Embark on a journey of limitless Exploration with ClipFlicks.
           </Text>
 
           <CustomButton title="Continue with Email" handlePress={() => router.push('/signIn')} isLoading={false} />
         </View>
       </ScrollView>
 
-      <StatusBar style="light"  />
+      <StatusBar style="auto"  />
 
     </SafeAreaView>
   );

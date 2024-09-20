@@ -6,7 +6,8 @@ import { useVideoContext } from "@/context";
 
 const SearchInput = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const {query, setQuery, videoSearch} = useVideoContext()
+  const [query, setQuery] = useState<string | undefined>("")
+  const { videoSearch } = useVideoContext()
   const pathname = usePathname();
 
   return (
@@ -37,7 +38,7 @@ const SearchInput = () => {
             router.push(`/search/${query}`);
           }
           try {
-            await videoSearch();
+            await videoSearch(query);
           } catch (error) {
             Alert.alert("No videos", "Videos not found");
           }
