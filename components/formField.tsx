@@ -13,7 +13,7 @@ const FormField = ({ title, value, handleChangeText, placeholder }: any) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   return (
-    <View className="w-full gap-y-2 mt-6 relative">
+    <View className={`w-full gap-y-2 ${title === "AI Prompt" ? "mt-1" : "mt-6"} relative`}>
       <Text className="text-gray-100 text-lg capitalize">{title}</Text>
       <View className="w-full flex">
         <TextInput

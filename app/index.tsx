@@ -55,7 +55,7 @@ const index = () => {
         </View>
       </ScrollView>
 
-      <StatusBar style="auto"  />
+      <StatusBar style="light" />
 
     </SafeAreaView>
   );

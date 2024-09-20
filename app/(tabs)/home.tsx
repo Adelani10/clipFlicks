@@ -15,6 +15,7 @@ import EmptyState from "@/components/emptyState";
 import axios from "axios";
 import VideoCard from "@/components/videoCard";
 import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -47,7 +48,7 @@ const Home = () => {
 
   return (
     <SafeAreaView className="bg-primary">
-      <View className="flex pt-10 h-full px-6">
+      <View className="flex pt-8 h-full px-6">
         <FlatList
           data={posts}
           keyExtractor={(item) => item.cfId}
@@ -93,6 +94,8 @@ const Home = () => {
           }
         />
       </View>
+
+      <StatusBar style="light" />
     </SafeAreaView>
   );
 };

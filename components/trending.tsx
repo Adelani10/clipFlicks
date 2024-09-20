@@ -63,9 +63,11 @@ const Trending = ({ posts }: any) => {
 
   return (
     <View className="space-y-3">
-      <Text className="text-gray-100 text-lg mt-6 tracking-wider">
-        Trending Videos
-      </Text>
+      {posts.length > 0 && (
+        <Text className="text-gray-100 text-lg mt-6 tracking-wider">
+          Trending Videos
+        </Text>
+      )}
 
       <FlatList
         data={posts}
