@@ -15,20 +15,26 @@ const zoomIn: any = { 0: { scale: 0.9 }, 1: { scale: 1 } };
 const zoomOut: any = { 0: { scale: 1 }, 1: { scale: 0.9 } };
 
 const TrendingItem = ({ activeItem, item }: any) => {
-
-  console.log(activeItem)
   const [play, setPlay] = useState<boolean>(false);
   return (
     <Animatable.View
-      animation={activeItem === item ? zoomIn : zoomOut}
+      animation={activeItem === item.cfId ? zoomIn : zoomOut}
       duration={500}
+      className=""
     >
       {play === false ? (
-        <TouchableOpacity onPress={() => setPlay(true)}>
-          <ImageBackground source={{uri: item.thumbnail}} className="" resizeMode="cover" />
+        <TouchableOpacity
+          className="w-40 h-64 rounded-2xl bg-gray-100 flex justify-center items-center"
+          onPress={() => setPlay(true)}
+        >
+          <ImageBackground
+            source={{ uri: item.thumbnail }}
+            className="h-full w-full overflow-hidden rounded-xl"
+            resizeMode="cover"
+          />
 
           <Image
-            className="w-full  h-full"
+            className="w-8 absolute h-8"
             source={icons.play}
             resizeMode="contain"
           />
@@ -36,7 +42,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
       ) : (
         <Video
           source={require("../assets/mainVids/GusDeath_BreakingBad.mp4")}
-          className="rounded-lg w-full h-full"
+          className="rounded-lg w-40 h-64"
           resizeMode={ResizeMode.CONTAIN}
           shouldPlay
           useNativeControls
@@ -54,8 +60,6 @@ const TrendingItem = ({ activeItem, item }: any) => {
 
 const Trending = ({ posts }: any) => {
   const [activeItem, setActiveItem] = useState<any>(posts[0]);
-
-
 
   return (
     <View className="space-y-3">

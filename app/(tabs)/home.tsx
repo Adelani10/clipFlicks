@@ -84,7 +84,7 @@ const Home = () => {
 
                 <SearchInput />
 
-                {/* <Trending posts={posts} /> */}
+                <Trending posts={posts} />
               </View>
             );
           }}
