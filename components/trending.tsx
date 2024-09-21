@@ -20,7 +20,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
     <Animatable.View
       animation={activeItem === item.cfId.timestamp ? zoomIn : zoomOut}
       duration={500}
-      className=""
+      className="rounded-xl"
     >
       {play === false ? (
         <TouchableOpacity
@@ -42,7 +42,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
       ) : (
         <Video
           source={require("../assets/mainVids/GusDeath_BreakingBad.mp4")}
-          className="rounded-lg w-40 h-64"
+          className="rounded-xl w-40 h-64"
           resizeMode={ResizeMode.CONTAIN}
           shouldPlay
           useNativeControls
