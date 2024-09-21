@@ -5,17 +5,27 @@ interface buttonProps {
   title: string;
   handlePress: any;
   isLoading: boolean;
+  otherStyles: string;
 }
 
-const CustomButton = ({ title, handlePress, isLoading }: buttonProps) => {
+const CustomButton = ({
+  title,
+  handlePress,
+  isLoading,
+  otherStyles,
+}: buttonProps) => {
   return (
     <TouchableOpacity
       onPress={handlePress}
       disabled={isLoading}
       activeOpacity={0.7}
-      className={`${isLoading ? "bg-pink-900" : "bg-pink-600"}  ${title === "Upload" ? "mt-4" : "mt-12" } rounded-lg p-3 w-full`}
+      className={`${
+        isLoading ? "bg-pink-900" : "bg-pink-600"
+      } ${otherStyles} rounded-lg p-3 w-full`}
     >
-        <Text className="text-lg text-center text-white tracking-wide font-semibold">{title}</Text>
+      <Text className="text-lg text-center text-white tracking-wide font-semibold">
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };

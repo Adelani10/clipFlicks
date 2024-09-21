@@ -3,7 +3,7 @@ import React from "react";
 import { images } from "@/constants";
 import CustomButton from "@/components/customButton";
 import { router, Redirect } from "expo-router";
-import { StatusBar } from 'expo-status-bar'
+import { StatusBar } from "expo-status-bar";
 
 const index = () => {
   return (
@@ -39,7 +39,6 @@ const index = () => {
               </Text>
             </Text>
 
-
             <Image
               source={images.path}
               className="absolute right-0 bottom-0 border-white"
@@ -48,15 +47,20 @@ const index = () => {
           </View>
 
           <Text className=" text-[#cdcde0] text-center ">
-            Where Nolstagia meets Innovation: Embark on a journey of limitless Exploration with ClipFlicks.
+            Where Nolstagia meets Innovation: Embark on a journey of limitless
+            Exploration with ClipFlicks.
           </Text>
 
-          <CustomButton title="Continue with Email" handlePress={() => router.push('/signIn')} isLoading={false} />
+          <CustomButton
+            title="Continue with Email"
+            handlePress={() => router.push("/signIn")}
+            isLoading={false}
+            otherStyles="mt-12"
+          />
         </View>
       </ScrollView>
 
       <StatusBar style="light" />
-
     </SafeAreaView>
   );
 };

@@ -75,6 +75,7 @@ const SignIn = () => {
                 router.push("/home")
               }}
               isLoading={isSubmitting}
+              otherStyles="mt-12"
             />
             <Text className="text-gray-100 text-lg font-semibold ">
               Don't have an account?

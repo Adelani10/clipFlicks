@@ -1,0 +1,71 @@
+[
+  {
+    "title": "Gustavo Fring's famous death",
+    "prompt": "Right side of Gus' body burnt badly, after the death of Hector",
+    "thumbnail": "https://res.cloudinary.com/dksvvhuj2/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1726503579/gusDeath_f6niiy.jpg",
+    "video": "https://vimeo.com/1009915096",
+    "creator": {
+      "accountId": 1,
+      "email": "",
+      "username": "",
+      "password": "",
+      "bookmarks": []
+    }
+  },
+
+  {
+    "title": "The Red Wedding",
+    "prompt": "Robb & the stark family are betrayed and killed ruthlessly by House Frey in a wedding ceremnony",
+    "thumbnail": "https://res.cloudinary.com/dksvvhuj2/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1726503579/redWedding_mevzqe.jpg",
+    "video": "https://vimeo.com/1009915461",
+    "creator": {
+      "accountId": 2,
+      "email": "",
+      "username": "",
+      "bookmarks": [],
+      "password": ""
+    }
+  },
+
+  {
+    "title": "Hank death scene",
+    "prompt": "Hired assassins finally get to Hank, they take him to the desert and shoot him as a warning to heisenberg to co-operate",
+    "thumbnail": "https://res.cloudinary.com/dksvvhuj2/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1726503579/hankDeath_jt7jhq.jpg",
+    "video": "https://vimeo.com/1009915259",
+    "creator": {
+      "accountId": 3,
+      "email": "",
+      "username": "",
+      "password": "",
+      "bookmarks": []
+    }
+  },
+
+  {
+    "title": "Prison break Escape scene",
+    "prompt": "Micheal and the guys finally make it out of Fox River",
+    "thumbnail": "https://res.cloudinary.com/dksvvhuj2/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1726503578/prisonBreak_yriz6x.jpg",
+    "video": "https://vimeo.com/1009925893",
+    "creator": {
+      "accountId": 4,
+      "email": "",
+      "username": "",
+      "password": "",
+      "bookmarks": []
+    }
+  },
+
+  {
+    "title": "Omar walking into the ends",
+    "prompt": "The sight of Omar makes boys in the hood tremble",
+    "thumbnail": "https://res.cloudinary.com/dksvvhuj2/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1726503579/omarComing_rp4blp.jpg",
+    "video": "https://vimeo.com/1009915391",
+    "creator": {
+      "accountId": 5,
+      "email": "",
+      "username": "",
+      "password": "",
+      "bookmarks": []
+    }
+  }
+]

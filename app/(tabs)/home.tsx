@@ -51,7 +51,7 @@ const Home = () => {
       <View className="flex pt-8 h-full px-6">
         <FlatList
           data={posts}
-          keyExtractor={(item) => item.cfId}
+          keyExtractor={(item) => item.cfId.timestamp}
           renderItem={({ item }) => {
             return <VideoCard item={item} />;
           }}

@@ -18,7 +18,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
   const [play, setPlay] = useState<boolean>(false);
   return (
     <Animatable.View
-      animation={activeItem === item.cfId ? zoomIn : zoomOut}
+      animation={activeItem === item.cfId.timestamp ? zoomIn : zoomOut}
       duration={500}
       className=""
     >
@@ -71,7 +71,7 @@ const Trending = ({ posts }: any) => {
 
       <FlatList
         data={posts}
-        keyExtractor={(item) => item.cfId}
+        keyExtractor={(item) => item.cfId.timestamp}
         renderItem={({ item }) => {
           return <TrendingItem activeItem={activeItem} item={item} />;
         }}

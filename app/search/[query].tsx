@@ -19,9 +19,9 @@ const Search = () => {
       <View className="flex pt-10 h-full px-6">
         <FlatList
           data={memoizedQueryResults}
-          keyExtractor={(item) => item.cfId}
+          keyExtractor={(item) => item.cfId.timestamp}
           renderItem={({ item }) => {
-            return <VideoCard key={item.cfId} item={item} />;
+            return <VideoCard key={item.cfId.timestamp} item={item} />;
           }}
           ListEmptyComponent={() => {
             return (

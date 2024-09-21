@@ -12,7 +12,7 @@ const VideoCard = ({ item }: any) => {
   const bookmarkVideo = async () => {
     try {
       await axios.put(
-        `https://videosappapi-1.onrender.com/api/v1/bookmark/${item.cfId}`,
+        `https://videosappapi-1.onrender.com/api/v1/bookmark/${item.cfId.timestamp}`,
         item
       );
     } catch (error: any) {
@@ -23,7 +23,7 @@ const VideoCard = ({ item }: any) => {
   const removeBookmark = async () => {
     try {
       await axios.put(
-        `https://videosappapi-1.onrender.com/api/v1/remove_bookmark/${item.cfId}`,
+        `https://videosappapi-1.onrender.com/api/v1/remove_bookmark/${item.cfId.timestamp}`,
         item
       );
     } catch (error: any) {
