@@ -14,11 +14,18 @@ import { ResizeMode, Video } from "expo-av";
 const zoomIn: any = { 0: { scale: 0.9 }, 1: { scale: 1 } };
 const zoomOut: any = { 0: { scale: 1 }, 1: { scale: 0.9 } };
 
+interface postsInterface {
+  id: number;
+  title: string;
+  thumbnail: string;
+  video: string;
+}
+
 const TrendingItem = ({ activeItem, item }: any) => {
   const [play, setPlay] = useState<boolean>(false);
   return (
     <Animatable.View
-      animation={activeItem === item.cfId.timestamp ? zoomIn : zoomOut}
+      animation={activeItem === item.id ? zoomIn : zoomOut}
       duration={500}
       className="rounded-xl"
     >
@@ -28,7 +35,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
           onPress={() => setPlay(true)}
         >
           <ImageBackground
-            source={{ uri: item.thumbnail }}
+            source={ item.thumbnail }
             className="h-full w-full overflow-hidden rounded-xl"
             resizeMode="cover"
           />
@@ -41,7 +48,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
         </TouchableOpacity>
       ) : (
         <Video
-          source={require("../assets/mainVids/GusDeath_BreakingBad.mp4")}
+          source={item.video}
           className="rounded-xl w-40 h-64"
           resizeMode={ResizeMode.CONTAIN}
           shouldPlay
@@ -58,7 +65,39 @@ const TrendingItem = ({ activeItem, item }: any) => {
   );
 };
 
-const Trending = ({ posts }: any) => {
+const Trending = () => {
+  const [posts, setPosts] = useState<postsInterface[]>([
+    {
+      id: 1,
+      title: "Friends",
+      thumbnail: require("../assets/trendingVids/friendsThumbnail.jpeg"),
+      video: require("../assets/trendingVids/ChanandlerBong_Friends.mp4"),
+    },
+    {
+      id: 2,
+      title: "Fresh Prince of BelAir",
+      thumbnail: require("../assets/trendingVids/fpthumbnail.png"),
+      video: require("../assets/trendingVids/WillsRizz_FreshPrince.mp4"),
+    },
+    {
+      id: 3,
+      title: "Himym",
+      thumbnail: require("../assets/trendingVids/himym.jpeg"),
+      video: require("../assets/trendingVids/ReasonsToHaveSex_HIMYT.mp4"),
+    },
+    {
+      id: 4,
+      title: "Everybody hates Chris",
+      thumbnail: require("../assets/trendingVids/ehcthumbnail.jpeg"),
+      video: require("../assets/trendingVids/ChrisFlirting _EverybodyHatesChris.mp4"),
+    },
+    {
+      id: 5,
+      title: "Fresh Prince of BelAir",
+      thumbnail: require("../assets/trendingVids/tothumbnail.png"),
+      video: require("../assets/trendingVids/tothumbnail.png"),
+    },
+  ]);
   const [activeItem, setActiveItem] = useState<any>(posts[0]);
 
   return (
@@ -71,7 +110,7 @@ const Trending = ({ posts }: any) => {
 
       <FlatList
         data={posts}
-        keyExtractor={(item) => item.cfId.timestamp}
+        keyExtractor={(item: any) => item.id}
         renderItem={({ item }) => {
           return <TrendingItem activeItem={activeItem} item={item} />;
         }}
