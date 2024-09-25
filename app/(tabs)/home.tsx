@@ -36,9 +36,11 @@ const Home = () => {
     }
   };
 
+  console.log(posts)
+
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [posts]);
   const refetch = () => fetchPosts();
 
   const onRefresh = async () => {
@@ -49,50 +51,56 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-primary">
       <View className="flex pt-8 h-full px-6">
-        <FlatList
-          data={posts}
-          keyExtractor={(item) => item.cfId.timestamp}
-          renderItem={({ item }) => {
-            return <VideoCard item={item} />;
-          }}
-          ListEmptyComponent={() => {
-            return (
-              <EmptyState
-                title="No videos found"
-                subtitle="No videos found in Explore"
-                buttonText="Go to bookmarks"
-                handlePress={() => router.push("/bookmark")}
-              />
-            );
-          }}
-          ListHeaderComponent={() => {
-            return (
-              <View className="flex gap-y-3">
-                <View className="flex flex-row items-center  justify-between">
-                  <View className="flex">
-                    <Text className="text-gray-100 text-xs">Welcome Back,</Text>
-                    <Text className="text-white font-bold text-xl">
-                      LaniPlayDirty
-                    </Text>
+        {isLoading ? (
+          <Text>Loading Videos...</Text>
+        ) : (
+          <FlatList
+            data={posts}
+            keyExtractor={(item) => item.cfId.timestamp()}
+            renderItem={({ item }) => {
+              return <VideoCard item={item} />;
+            }}
+            ListEmptyComponent={() => {
+              return (
+                <EmptyState
+                  title="No videos found"
+                  subtitle="No videos found in Explore"
+                  buttonText="Go to bookmarks"
+                  handlePress={() => router.push("/bookmark")}
+                />
+              );
+            }}
+            ListHeaderComponent={() => {
+              return (
+                <View className="flex gap-y-3">
+                  <View className="flex flex-row items-center  justify-between">
+                    <View className="flex">
+                      <Text className="text-gray-100 text-xs">
+                        Welcome Back,
+                      </Text>
+                      <Text className="text-white font-bold text-xl">
+                        LaniPlayDirty
+                      </Text>
+                    </View>
+
+                    <Image
+                      source={images.logoSmall}
+                      resizeMode="contain"
+                      className=""
+                    />
                   </View>
 
-                  <Image
-                    source={images.logoSmall}
-                    resizeMode="contain"
-                    className=""
-                  />
+                  <SearchInput />
+
+                  <Trending arr={posts} />
                 </View>
-
-                <SearchInput />
-
-                <Trending />
-              </View>
-            );
-          }}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        />
+              );
+            }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+        )}
       </View>
 
       <StatusBar style="light" />

@@ -27,6 +27,7 @@ const FormField = ({ title, value, handleChangeText, placeholder }: any) => {
           className={` ${
             isFocused ? "border-sky-400  border" : ""
           }   w-full h-14 p-4 text-gray-100 bg-black-200 rounded-lg`}
+          autoCapitalize="none"
         />
 
         {title === "password" && (

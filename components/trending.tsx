@@ -35,7 +35,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
           onPress={() => setPlay(true)}
         >
           <ImageBackground
-            source={ item.thumbnail }
+            source={item.thumbnail}
             className="h-full w-full overflow-hidden rounded-xl"
             resizeMode="cover"
           />
@@ -65,7 +65,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
   );
 };
 
-const Trending = () => {
+const Trending = ({ arr }: any) => {
   const [posts, setPosts] = useState<postsInterface[]>([
     {
       id: 1,
@@ -101,29 +101,31 @@ const Trending = () => {
   const [activeItem, setActiveItem] = useState<any>(posts[0]);
 
   return (
-    <View className="space-y-3">
-      {posts.length > 0 && (
-        <Text className="text-gray-100 text-lg mt-6 tracking-wider">
-          Trending Videos
-        </Text>
-      )}
+    <>
+      {arr.length > 0 && (
+        <View className="space-y-3">
+          <Text className="text-gray-100 text-lg mt-6 tracking-wider">
+            Trending Videos
+          </Text>
 
-      <FlatList
-        data={posts}
-        keyExtractor={(item: any) => item.id}
-        renderItem={({ item }) => {
-          return <TrendingItem activeItem={activeItem} item={item} />;
-        }}
-        horizontal
-        onViewableItemsChanged={({ viewableItems }) => {
-          if (viewableItems.length > 0) {
-            setActiveItem(viewableItems[0].key);
-          }
-        }}
-        viewabilityConfig={{ itemVisiblePercentThreshold: 70 }}
-        contentOffset={{ x: 170, y: 0 }}
-      />
-    </View>
+          <FlatList
+            data={posts}
+            keyExtractor={(item: any) => item.id}
+            renderItem={({ item }) => {
+              return <TrendingItem activeItem={activeItem} item={item} />;
+            }}
+            horizontal
+            onViewableItemsChanged={({ viewableItems }) => {
+              if (viewableItems.length > 0) {
+                setActiveItem(viewableItems[0].key);
+              }
+            }}
+            viewabilityConfig={{ itemVisiblePercentThreshold: 70 }}
+            contentOffset={{ x: 170, y: 0 }}
+          />
+        </View>
+      )}
+    </>
   );
 };
 

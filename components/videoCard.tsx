@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 const VideoCard = ({ item }: any) => {
   const [play, setPlay] = useState<boolean>(false);
-  const [bookmarked, setBookmarked] = useState<boolean>(false);
+  const [menuToggled, setMenuToggled] = useState<boolean>(false);
 
   const bookmarkVideo = async () => {
     try {
@@ -55,26 +55,14 @@ const VideoCard = ({ item }: any) => {
           </View>
         </View>
 
-        {!bookmarked ? (
-          <TouchableOpacity
-            onPress={() => {
-              setBookmarked(false);
-              removeBookmark();
-            }}
-            className=" inline-block"
-          >
-            <Icon name="heart-o" size={30} color="#ff007f" />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => {
-              setBookmarked(true);
-              bookmarkVideo();
-            }}
-          >
-            <Icon name="heart" size={30} color="#ff007f" />
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          onPress={() => {
+            setMenuToggled(true);
+          }}
+          className=" inline-block"
+        >
+          <Image source={icons.menu} resizeMode="contain" className="" />
+        </TouchableOpacity>
       </View>
 
       <View className="w-full rounded-xl h-52">

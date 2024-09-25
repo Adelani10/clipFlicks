@@ -1,21 +1,55 @@
-import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  Image,
+  Alert,
+} from "react-native";
 import React, { useState } from "react";
 import FormField from "@/components/formField";
 import { images } from "@/constants";
 import CustomButton from "@/components/customButton";
 import { Link, router } from "expo-router";
+import axios from "axios";
 
 interface formDataTypes {
   email: string;
   password: string;
+  username: string;
+  bookmarks: any[];
 }
 
 const SignIn = () => {
   const [formData, setFormData] = useState<formDataTypes>({
     email: "",
     password: "",
+    username: "",
+    bookmarks: [],
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const handleSignIn = async () => {
+    setIsSubmitting(true)
+    if (formData.email && formData.password) {
+      try {
+        const response = await axios.post("http://api/v1/login", formData);
+        console.log(response);
+      } catch (error: any) {
+        Alert.alert("Error signing in", error.message);
+      } finally {
+        setFormData({
+          email: "",
+          password: "",
+          username: "",
+          bookmarks: [],
+        });
+      }
+    }
+    else {
+      Alert.alert("Error", "Please fill the required fields")
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary ">
@@ -51,7 +85,8 @@ const SignIn = () => {
                 };
               });
             }}
-            placeholder="delani10delani@gmail.com"
+            placeholder="delani10@gmail.com"
+            
           />
 
           <FormField
@@ -71,9 +106,7 @@ const SignIn = () => {
           <View className="w-full flex items-center gap-y-2">
             <CustomButton
               title="Sign In"
-              handlePress={() => {
-                router.push("/home")
-              }}
+              handlePress={handleSignIn}
               isLoading={isSubmitting}
               otherStyles="mt-12"
             />
