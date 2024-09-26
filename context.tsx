@@ -64,7 +64,7 @@ const VideoProvider = ({ children }: any) => {
         return;
     }
     const results = await axios.get(
-      `https://videosappapi-1.onrender.com/api/v1/Creator`,
+      `https://videosappapi-1.onrender.com/api/v1/creator`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -73,6 +73,7 @@ const VideoProvider = ({ children }: any) => {
     );
     setCurrentCreator(results.data)
   }
+
 
   useEffect(()=>{
     fetchCurrentUser()

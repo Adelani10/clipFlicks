@@ -70,15 +70,15 @@ const Trending = ({ arr }: any) => {
   const [posts, setPosts] = useState<postsInterface[]>([
     {
       id: 1,
-      title: "Friends",
-      thumbnail: require("../assets/trendingVids/friendsThumbnail.jpeg"),
-      video: require("../assets/trendingVids/ChanandlerBong_Friends.mp4"),
+      title: "Everybody hates Chris",
+      thumbnail: require("../assets/trendingVids/ehcthumbnail.jpeg"),
+      video: require("../assets/trendingVids/ChrisFlirting _EverybodyHatesChris.mp4"),
     },
     {
       id: 2,
-      title: "Fresh Prince of BelAir",
-      thumbnail: require("../assets/trendingVids/fpthumbnail.png"),
-      video: require("../assets/trendingVids/WillsRizz_FreshPrince.mp4"),
+      title: "Friends",
+      thumbnail: require("../assets/trendingVids/friendsThumbnail.jpeg"),
+      video: require("../assets/trendingVids/ChanandlerBong_Friends.mp4"),
     },
     {
       id: 3,
@@ -86,17 +86,18 @@ const Trending = ({ arr }: any) => {
       thumbnail: require("../assets/trendingVids/himym.jpeg"),
       video: require("../assets/trendingVids/ReasonsToHaveSex_HIMYT.mp4"),
     },
+    
     {
       id: 4,
-      title: "Everybody hates Chris",
-      thumbnail: require("../assets/trendingVids/ehcthumbnail.jpeg"),
-      video: require("../assets/trendingVids/ChrisFlirting _EverybodyHatesChris.mp4"),
+      title: "The Office",
+      thumbnail: require("../assets/trendingVids/tothumbnail.png"),
+      video: require("../assets/trendingVids/tothumbnail.png"),
     },
     {
       id: 5,
       title: "Fresh Prince of BelAir",
-      thumbnail: require("../assets/trendingVids/tothumbnail.png"),
-      video: require("../assets/trendingVids/tothumbnail.png"),
+      thumbnail: require("../assets/trendingVids/fpthumbnail.png"),
+      video: require("../assets/trendingVids/WillsRizz_FreshPrince.mp4"),
     },
   ]);
   const [activeItem, setActiveItem] = useState<any>(posts[0]);
