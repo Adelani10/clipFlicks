@@ -16,25 +16,21 @@ import { StatusBar } from "expo-status-bar";
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import axios from "axios";
+import { useVideoContext } from "@/context";
 
 const Create = () => {
+  const { getToken, currentCreator } = useVideoContext();
   const [uploading, setUploading] = useState(false);
   const [videoObj, setVideoObj] = useState<any>({
     title: "",
     prompt: "",
     thumbnail: "",
     video: "",
-    creator: {
-      email: "",
-      username: "",
-      password: "",
-      bookmarks: [],
-    },
+    creatorId: currentCreator.accountId
   });
 
-  // console.log(videoObj);
-
   // {"assets": [{"assetId": "A373B94A-AE8F-42EB-809F-412D6F1991A4/L0/001", "base64": null, "duration": 1566.7120181405896, "exif": null, "fileName": "recorded-9277746118676.mp4", "fileSize": 875168, "height": 1280, "mimeType": "video/mp4", "type": "video", "uri": "file:///Users/ade/Library/Developer/CoreSimulator/Devices/AD8F1643-6C58-4432-9D22-DB1A16AD2E6C/data/Containers/Data/Application/AABF6CAE-91B3-41A6-91D6-244002454BD3/Library/Caches/ExponentExperienceData/@delani/videos-fe/ImagePicker/0BB42A1D-8588-415D-A5E8-58B331F9037B.mp4", "width": 704}], "canceled": false}
+
 
   const submit = async () => {
     if (
@@ -48,10 +44,18 @@ const Create = () => {
 
     setUploading(true);
     try {
+      const token = await getToken(); // Retrieve the token
+
+      if (!token) {
+        Alert.alert("No token found, user is not authenticated");
+        return;
+      }
       await axios
-        .post("https://videosappapi-1.onrender.com/api/v1/videos", videoObj)
-        .then((response) => {
-          console.log("Response:", response.data);
+        .post("https://videosappapi-1.onrender.com/api/v1/videos", videoObj, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -66,44 +70,12 @@ const Create = () => {
         prompt: "",
         thumbnail: "",
         video: "",
-        creator: {
-          email: "",
-          username: "",
-          password: "",
-          bookmarks: [],
-        },
+        creatorId: currentCreator.accountId
       });
 
       setUploading(false);
     }
   };
-
-  // const mediaSelector = async (selectType: string) => {
-  //   const result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes:
-  //       selectType === "image"
-  //         ? ImagePicker.MediaTypeOptions.Images
-  //         : ImagePicker.MediaTypeOptions.Videos,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
-
-  //   if (!result.canceled) {
-  //     if (selectType === "image") {
-  //       setVideoObj({
-  //         ...videoObj,
-  //         thumbnail: result.assets[0].uri,
-  //       });
-  //     }
-
-  //     if (selectType === "video") {
-  //       setVideoObj({
-  //         ...videoObj,
-  //         video: result.assets[0].uri,
-  //       });
-  //     }
-  //   }
-  // };
 
   const mediaSelector = async (selectType: string) => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -136,7 +108,7 @@ const Create = () => {
         console.error("No assets found in the result");
       }
     } else {
-      console.log("User canceled image/video selection");
+      Alert.alert("User canceled image/video selection");
     }
   };
 
@@ -172,7 +144,11 @@ const Create = () => {
                   onPress={() => mediaSelector("video")}
                   className="p-4 border border-dashed border-pink-600"
                 >
-                  <Image source={icons.upload} className="" resizeMode="contain" />
+                  <Image
+                    source={icons.upload}
+                    className=""
+                    resizeMode="contain"
+                  />
                 </TouchableOpacity>
               )}
             </View>

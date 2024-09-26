@@ -4,11 +4,11 @@
     "slug": "videos-fe",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logoSmall.png",
     "scheme": "clipflicks",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/logoSmall.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

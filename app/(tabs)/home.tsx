@@ -15,18 +15,34 @@ import EmptyState from "@/components/emptyState";
 import axios from "axios";
 import VideoCard from "@/components/videoCard";
 import { router } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from "expo-status-bar";
+import { useVideoContext } from "@/context";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [posts, setPosts] = useState<any[] | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {getToken} = useVideoContext()
 
   const fetchPosts = async () => {
+
+    const token = await getToken(); // Retrieve the token
+
+    if (!token) {
+        Alert.alert('No token found, user is not authenticated');
+        return;
+    }
+
     setIsLoading(true);
     try {
       const response = await axios.get(
-        "https://videosappapi-1.onrender.com/api/v1/videos"
+        "https://videosappapi-1.onrender.com/api/v1/videos",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setPosts(response.data);
     } catch (error: any) {
@@ -36,11 +52,9 @@ const Home = () => {
     }
   };
 
-  console.log(posts)
-
   useEffect(() => {
     fetchPosts();
-  }, [posts]);
+  }, []);
   const refetch = () => fetchPosts();
 
   const onRefresh = async () => {
@@ -51,12 +65,10 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-primary">
       <View className="flex pt-8 h-full px-6">
-        {isLoading ? (
-          <Text>Loading Videos...</Text>
-        ) : (
+        
           <FlatList
             data={posts}
-            keyExtractor={(item) => item.cfId.timestamp()}
+            keyExtractor={(item) => item.cfId.timestamp}
             renderItem={({ item }) => {
               return <VideoCard item={item} />;
             }}
@@ -100,7 +112,6 @@ const Home = () => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           />
-        )}
       </View>
 
       <StatusBar style="light" />

@@ -9,31 +9,10 @@ const VideoCard = ({ item }: any) => {
   const [play, setPlay] = useState<boolean>(false);
   const [menuToggled, setMenuToggled] = useState<boolean>(false);
 
-  const bookmarkVideo = async () => {
-    try {
-      await axios.put(
-        `https://videosappapi-1.onrender.com/api/v1/bookmark/${item.cfId.timestamp}`,
-        item
-      );
-    } catch (error: any) {
-      Alert.alert("Error", error.message);
-    }
-  };
-
-  const removeBookmark = async () => {
-    try {
-      await axios.put(
-        `https://videosappapi-1.onrender.com/api/v1/remove_bookmark/${item.cfId.timestamp}`,
-        item
-      );
-    } catch (error: any) {
-      Alert.alert("Error", error.message);
-    }
-  };
-
   return (
     <View className="gap-y-2 mt-5">
       <View className="flex flex-row items-center justify-between">
+
         <View className="w-full max-w-[85%] flex flex-row items-center gap-x-2">
           <View className="flex justify-center items-center bg-pink-600 border-2 rounded-md w-9 border-sky-600 h-9">
             <Text className=" uppercase font-bold text-lg text-white">
@@ -50,7 +29,8 @@ const VideoCard = ({ item }: any) => {
               numberOfLines={1}
               className="text-gray-100 font-semibold text-xs"
             >
-              {item.creator.username || "Bimbo"}
+              {/* {creator.username} */}
+              Bimbo
             </Text>
           </View>
         </View>
@@ -59,9 +39,9 @@ const VideoCard = ({ item }: any) => {
           onPress={() => {
             setMenuToggled(true);
           }}
-          className=" inline-block"
+          className="h-6"
         >
-          <Image source={icons.menu} resizeMode="contain" className="" />
+          <Image source={icons.menu} resizeMode="contain" className="h-full" />
         </TouchableOpacity>
       </View>
 

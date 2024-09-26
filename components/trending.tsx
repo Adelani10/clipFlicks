@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
@@ -58,7 +59,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
               setPlay(false);
             }
           }}
-          onError={(error) => console.log(error)}
+          onError={(error) => Alert.alert(error)}
         />
       )}
     </Animatable.View>

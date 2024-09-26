@@ -12,6 +12,8 @@ import { images } from "@/constants";
 import CustomButton from "@/components/customButton";
 import { Link, router } from "expo-router";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useVideoContext } from "@/context";
 
 interface formDataTypes {
   email: string;
@@ -30,14 +32,19 @@ const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleSignIn = async () => {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     if (formData.email && formData.password) {
       try {
-        const response = await axios.post("http://api/v1/login", formData);
-        console.log(response);
+        const response = await axios.post(
+          "https://videosappapi-1.onrender.com/api/v1/login",
+          formData
+        );
+        await AsyncStorage.setItem("authToken", response.data);
+        router.replace("/home");
       } catch (error: any) {
         Alert.alert("Error signing in", error.message);
       } finally {
+        setIsSubmitting(false);
         setFormData({
           email: "",
           password: "",
@@ -45,12 +52,11 @@ const SignIn = () => {
           bookmarks: [],
         });
       }
-    }
-    else {
-      Alert.alert("Error", "Please fill the required fields")
+    } else {
+      Alert.alert("Error", "Please fill the required fields");
+      setIsSubmitting(false);
     }
   };
-
   return (
     <SafeAreaView className="bg-primary ">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
@@ -77,27 +83,22 @@ const SignIn = () => {
           <FormField
             title="email"
             value={formData.email}
-            handleChangeText={(event: any) => {
-              setFormData((data) => {
-                return {
-                  ...data,
-                  email: event?.target,
-                };
+            handleChangeText={(e: any) => {
+              setFormData({
+                ...formData,
+                email: e,
               });
             }}
             placeholder="delani10@gmail.com"
-            
           />
 
           <FormField
             title="password"
             value={formData.password}
-            handleChangeText={(event: any) => {
-              setFormData((data) => {
-                return {
-                  ...data,
-                  password: event?.target,
-                };
+            handleChangeText={(e: any) => {
+              setFormData({
+                ...formData,
+                password: e,
               });
             }}
             placeholder="Enter a secure password"
@@ -123,5 +124,4 @@ const SignIn = () => {
     </SafeAreaView>
   );
 };
-
 export default SignIn;
