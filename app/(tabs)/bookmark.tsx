@@ -17,14 +17,11 @@ import { useVideoContext } from "@/context";
 import axios from "axios";
 
 const Bookmark = () => {
-  const { getToken, currentCreator } = useVideoContext();
+  const {  currentCreator, fetchCurrentUser } = useVideoContext();
   const [userBookmarks, setUserBookmarks] = useState<any[]>(currentCreator.bookmarks);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const clearBookmark = async () => {};
 
-
-
-  console.log(userBookmarks);
 
   return (
     <SafeAreaView className="bg-primary">
@@ -62,12 +59,12 @@ const Bookmark = () => {
               </View>
             );
           }}
-          // refreshControl={
-          //   <RefreshControl
-          //     refreshing={isLoading}
-          //     onRefresh={getUserBookmarks}
-          //   />
-          // }
+          refreshControl={
+            <RefreshControl
+              refreshing={isLoading}
+              onRefresh={fetchCurrentUser}
+            />
+          }
         />
       </View>
     </SafeAreaView>

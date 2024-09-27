@@ -99,20 +99,29 @@ const VideoCard = ({ item }: any) => {
                   return;
                 }
                 try {
-                  await axios.put(
-                    `https://videosappapi-1.onrender.com/api/v1/${
-                      pathname.startsWith("/bookmark")
-                        ? "bookmark"
-                        : "remove_bookmark"
-                    }`,
-                    item,
-                    {
-                      headers: {
-                        Authorization: `Bearer ${token}`,
-                      },
-                    }
-                  );
-                  Alert.alert("Success", "Video Bookmarked");
+                  if (pathname.startsWith("/bookmark")) {
+                    await axios.put(
+                      "https://videosappapi-1.onrender.com/api/v1/remove_bookmark",
+                      item,
+                      {
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                        },
+                      }
+                    );
+                    Alert.alert("Success", "Bookmark Removed");
+                  } else {
+                    await axios.put(
+                      "https://videosappapi-1.onrender.com/api/v1/bookmark",
+                      item,
+                      {
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                        },
+                      }
+                    );
+                    Alert.alert("Success", "Video Bookmarked");
+                  }
                   setIsBookmarking(false);
                 } catch (error) {
                   Alert.alert("Error fetching bookmarks");

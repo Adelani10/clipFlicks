@@ -8,7 +8,8 @@ interface VideoContextInterface {
   queryResults: any[];
   videoSearch: any;
   getToken: any;
-  currentCreator: any
+  currentCreator: any;
+  fetchCurrentUser: any
 }
 
 const VideoContext = createContext<VideoContextInterface | null>(null);
@@ -75,6 +76,7 @@ const VideoProvider = ({ children }: any) => {
   }
 
 
+
   useEffect(()=>{
     if(pathname.startsWith("/home" || "/create" || "/bookmark" || "/profile"))
     fetchCurrentUser()
@@ -86,7 +88,8 @@ const VideoProvider = ({ children }: any) => {
         queryResults,
         videoSearch,
         getToken,
-        currentCreator
+        currentCreator,
+        fetchCurrentUser
       }}
     >
       {children}
