@@ -1,14 +1,17 @@
-import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import FormField from "@/components/formField";
 import { images } from "@/constants";
 import CustomButton from "@/components/customButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 interface formDataTypes {
   username: string,
   email: string;
   password: string;
+  bookmarks: any[]
 }
 
 const SignUp = () => {
@@ -16,8 +19,36 @@ const SignUp = () => {
     username: "",
     email: "",
     password: "",
+    bookmarks: []
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const handleSignUp = async () => {
+    setIsSubmitting(true);
+    if (formData.email && formData.password) {
+      try {
+        const response = await axios.post(
+          "https://videosappapi-1.onrender.com/api/v1/register",
+          formData
+        );
+        await AsyncStorage.setItem("authToken", response.data);
+        router.replace("/home");
+      } catch (error: any) {
+        Alert.alert("Error signing in", error.message);
+      } finally {
+        setIsSubmitting(false);
+        setFormData({
+          email: "",
+          password: "",
+          username: "",
+          bookmarks: [],
+        });
+      }
+    } else {
+      Alert.alert("Error", "Please fill the required fields");
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary ">
@@ -49,7 +80,7 @@ const SignUp = () => {
               setFormData((data) => {
                 return {
                   ...data,
-                  username: event?.target,
+                  username: event,
                 };
               });
             }}
@@ -63,7 +94,7 @@ const SignUp = () => {
               setFormData((data) => {
                 return {
                   ...data,
-                  email: event?.target,
+                  email: event,
                 };
               });
             }}
@@ -77,7 +108,7 @@ const SignUp = () => {
               setFormData((data) => {
                 return {
                   ...data,
-                  password: event?.target,
+                  password: event,
                 };
               });
             }}
@@ -87,7 +118,7 @@ const SignUp = () => {
           <View className="w-full flex items-center gap-y-2">
             <CustomButton
               title="Sign Up"
-              handlePress={() => {}}
+              handlePress={handleSignUp}
               isLoading={isSubmitting}
               otherStyles="mt-12"
             />

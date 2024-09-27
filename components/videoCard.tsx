@@ -4,15 +4,19 @@ import { ResizeMode, Video } from "expo-av";
 import { icons } from "@/constants";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useVideoContext } from "@/context";
+import { usePathname } from "expo-router";
 
 const VideoCard = ({ item }: any) => {
   const [play, setPlay] = useState<boolean>(false);
   const [menuToggled, setMenuToggled] = useState<boolean>(false);
+  const [bookmarking, setIsBookmarking] = useState<boolean>(false);
+  const { getToken } = useVideoContext();
+  const pathname = usePathname();
 
   return (
     <View className="gap-y-2 mt-5">
       <View className="flex flex-row items-center justify-between">
-
         <View className="w-full max-w-[85%] flex flex-row items-center gap-x-2">
           <View className="flex justify-center items-center bg-pink-600 border-2 rounded-md w-9 border-sky-600 h-9">
             <Text className=" uppercase font-bold text-lg text-white">
@@ -37,7 +41,7 @@ const VideoCard = ({ item }: any) => {
 
         <TouchableOpacity
           onPress={() => {
-            setMenuToggled(true);
+            setMenuToggled(!menuToggled);
           }}
           className="h-6"
         >
@@ -77,6 +81,56 @@ const VideoCard = ({ item }: any) => {
                 source={icons.play}
                 resizeMode="contain"
               />
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {menuToggled && (
+          <View className="flex absolute top-0 right-0 bg-black-200 p-1 rounded-md">
+            <TouchableOpacity
+              onPress={async () => {
+                setIsBookmarking(true);
+                const token = await getToken();
+                if (!token) {
+                  Alert.alert(
+                    "Error",
+                    "No token found, user is not authenticated"
+                  );
+                  return;
+                }
+                try {
+                  await axios.put(
+                    `https://videosappapi-1.onrender.com/api/v1/${
+                      pathname.startsWith("/bookmark")
+                        ? "bookmark"
+                        : "remove_bookmark"
+                    }`,
+                    item,
+                    {
+                      headers: {
+                        Authorization: `Bearer ${token}`,
+                      },
+                    }
+                  );
+                  Alert.alert("Success", "Video Bookmarked");
+                  setIsBookmarking(false);
+                } catch (error) {
+                  Alert.alert("Error fetching bookmarks");
+                  setIsBookmarking(false);
+                  return;
+                }
+              }}
+              className="border-b p-1 border-gray-100"
+            >
+              <Text className="capitalize text-sm text-gray-100">
+                {pathname.startsWith("/bookmark")
+                  ? "remove bookmark"
+                  : "bookmark"}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity disabled className="p-1">
+              <Text className="capitalize text-sm text-gray-100">delete</Text>
             </TouchableOpacity>
           </View>
         )}

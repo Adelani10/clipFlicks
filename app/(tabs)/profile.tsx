@@ -12,9 +12,10 @@ import VideoCard from "@/components/videoCard";
 import EmptyState from "@/components/emptyState";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { icons, images } from "@/constants";
+import { icons } from "@/constants";
 import { useVideoContext } from "@/context";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = () => {
   const [creatorPosts, setCreatorPosts] = useState<any[]>([]);
@@ -22,44 +23,50 @@ const Profile = () => {
 
   const { currentCreator, getToken } = useVideoContext();
 
-  const fetchCurrentUserVideos = async () => {
-    setIsFetching(true);
-    const token = await getToken();
-    if (!token) {
-      Alert.alert("Error", "No token found, user is not authenticated");
-      return;
-    }
-
+  const logOut = async () => {
     try {
-      const response = await axios.get(
-        "https://videosappapi-1.onrender.com/api/v1/videos/creator_videos",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log(response.data.length)
-
-      setCreatorPosts(response.data);
+      await AsyncStorage.removeItem("authToken")
+      router.replace("/signIn")
     } catch (error: any) {
-      setIsFetching(false);
-      Alert.alert("Error", error.message);
-    } finally {
-      setIsFetching(false);
+      Alert.alert("Error signing out", error.message)
     }
-  };
+  }
 
-  console.log(creatorPosts)
+  // const fetchCurrentUserVideos = async () => {
+  //   setIsFetching(true);
+  //   const token = await getToken();
+  //   if (!token) {
+  //     Alert.alert("Error", "No token found, user is not authenticated");
+  //     return;
+  //   }
 
-  useEffect(()=>{
-    fetchCurrentUserVideos()
-  }, [currentCreator])
+  //   try {
+  //     const response = await axios.get(
+  //       `https://videosappapi-1.onrender.com/api/v1/videos/${currentCreator.accountId}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     setCreatorPosts(response.data);
+  //   } catch (error: any) {
+  //     setIsFetching(false);
+  //     Alert.alert("Error", error.message);
+  //   } finally {
+  //     setIsFetching(false);
+  //   }
+  // };
+
+  // console.log(creatorPosts);
+
+  // useEffect(() => {
+  //   fetchCurrentUserVideos();
+  // }, [currentCreator]);
 
   return (
     <SafeAreaView className="bg-primary">
-      <View className="flex pt-10 h-full px-6">
+      <View className="flex pt-6 h-full px-6">
         <FlatList
           data={creatorPosts}
           keyExtractor={(item) => item.cfId.timestamp}
@@ -82,7 +89,7 @@ const Profile = () => {
             return (
               <View className="flex gap-y-3">
                 <View className="flex space-y-3 items-center">
-                  <TouchableOpacity className="self-end">
+                  <TouchableOpacity onPress={logOut} className="self-end">
                     <Image
                       source={icons.logout}
                       resizeMode="contain"
@@ -123,12 +130,12 @@ const Profile = () => {
               </View>
             );
           }}
-          refreshControl={
-            <RefreshControl
-              refreshing={isFetching}
-              onRefresh={fetchCurrentUserVideos}
-            />
-          }
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={isFetching}
+          //     onRefresh={fetchCurrentUserVideos}
+          //   />
+          // }
         />
       </View>
     </SafeAreaView>

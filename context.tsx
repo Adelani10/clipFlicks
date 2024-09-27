@@ -76,6 +76,7 @@ const VideoProvider = ({ children }: any) => {
 
 
   useEffect(()=>{
+    if(pathname.startsWith("/home" || "/create" || "/bookmark" || "/profile"))
     fetchCurrentUser()
   }, [pathname])
 

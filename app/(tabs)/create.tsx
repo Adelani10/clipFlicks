@@ -114,7 +114,7 @@ const Create = () => {
 
   return (
     <SafeAreaView className="bg-primary">
-      <ScrollView className="flex pt-8 h-full px-6">
+      <ScrollView className="flex pt-6 h-full px-6">
         <View className="flex gap-y-2 ">
           <Text className="text-white text-2xl font-bold">Upload Video</Text>
           <FormField

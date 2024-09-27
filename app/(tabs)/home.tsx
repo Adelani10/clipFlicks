@@ -64,7 +64,7 @@ const Home = () => {
 
   return (
     <SafeAreaView className="bg-primary">
-      <View className="flex pt-8 h-full px-6">
+      <View className="flex pt-6 h-full px-6">
         
           <FlatList
             data={posts}
