@@ -11,7 +11,7 @@ const VideoCard = ({ item }: any) => {
   const [play, setPlay] = useState<boolean>(false);
   const [menuToggled, setMenuToggled] = useState<boolean>(false);
   const [bookmarking, setIsBookmarking] = useState<boolean>(false);
-  const { getToken } = useVideoContext();
+  const { getToken, fetchCurrentUser } = useVideoContext();
   const pathname = usePathname();
 
   return (
@@ -33,8 +33,7 @@ const VideoCard = ({ item }: any) => {
               numberOfLines={1}
               className="text-gray-100 font-semibold text-xs"
             >
-              {/* {creator.username} */}
-              Bimbo
+              {item.creatorUsername}
             </Text>
           </View>
         </View>
@@ -52,7 +51,7 @@ const VideoCard = ({ item }: any) => {
       <View className="w-full rounded-xl h-52">
         {play ? (
           <Video
-            source={require("../assets/mainVids/HanksDeath_BreakingBad.mp4")}
+            source={{ uri: item.video }}
             className="rounded-lg w-full h-full"
             resizeMode={ResizeMode.CONTAIN}
             shouldPlay
@@ -122,6 +121,7 @@ const VideoCard = ({ item }: any) => {
                     );
                     Alert.alert("Success", "Video Bookmarked");
                   }
+                  fetchCurrentUser();
                   setIsBookmarking(false);
                 } catch (error) {
                   Alert.alert("Error fetching bookmarks");

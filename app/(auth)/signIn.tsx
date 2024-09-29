@@ -12,7 +12,7 @@ import { images } from "@/constants";
 import CustomButton from "@/components/customButton";
 import { Link, router } from "expo-router";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useVideoContext } from "@/context";
 
 interface formDataTypes {
@@ -42,7 +42,25 @@ const SignIn = () => {
         await AsyncStorage.setItem("authToken", response.data);
         router.replace("/home");
       } catch (error: any) {
-        Alert.alert("Error signing in", error.message);
+        if (error.response) {
+          if (error.response.status === 401) {
+            Alert.alert("Authentication Failed", "Invalid email or password.");
+          } else {
+            Alert.alert(
+              "Login Error",
+              error.response.data || "An error occurred."
+            );
+          }
+        } else if (error.request) {
+          // The request was made, but no response was received
+          Alert.alert(
+            "No Response",
+            "Server did not respond. Please try again."
+          );
+        } else {
+          // Something else happened while making the request
+          Alert.alert("Error", "An unexpected error occurred.");
+        }
       } finally {
         setIsSubmitting(false);
         setFormData({

@@ -2,11 +2,17 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import { Tabs, Redirect } from "expo-router";
 import { icons } from "@/constants";
+import { StatusBar } from "expo-status-bar";
 
 const TabIcon = ({ icon, color, name, focused }: any) => {
   return (
     <View className="flex mt-4 items-center">
-      <Image source={icon} resizeMode="contain" className="w-6 h-6" tintColor={color} />
+      <Image
+        source={icon}
+        resizeMode="contain"
+        className="w-6 h-6"
+        tintColor={color}
+      />
       <Text
         className={`${
           focused ? "font-semibold text-pink-600" : "font-normal text-gray-100 "
@@ -17,8 +23,6 @@ const TabIcon = ({ icon, color, name, focused }: any) => {
     </View>
   );
 };
-
-
 
 const TabLayout = () => {
   return (
@@ -33,7 +37,6 @@ const TabLayout = () => {
             borderTopWidth: 3,
             borderTopColor: "#232533",
             height: 84,
-
           },
         }}
       >
@@ -101,6 +104,7 @@ const TabLayout = () => {
           }}
         />
       </Tabs>
+      <StatusBar style="light" backgroundColor="#161622" />
     </>
   );
 };

@@ -1,4 +1,12 @@
-import { View, Image, TextInput, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import React, { useState } from "react";
 import { icons } from "@/constants";
 import { router, usePathname } from "expo-router";
@@ -6,8 +14,8 @@ import { useVideoContext } from "@/context";
 
 const SearchInput = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [query, setQuery] = useState<string | undefined>("")
-  const { videoSearch } = useVideoContext()
+  const [query, setQuery] = useState<string | undefined>("");
+  const { videoSearch } = useVideoContext();
   const pathname = usePathname();
 
   return (

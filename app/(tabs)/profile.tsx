@@ -25,44 +25,41 @@ const Profile = () => {
 
   const logOut = async () => {
     try {
-      await AsyncStorage.removeItem("authToken")
-      router.replace("/signIn")
+      await AsyncStorage.removeItem("authToken");
+      router.replace("/signIn");
     } catch (error: any) {
-      Alert.alert("Error signing out", error.message)
+      Alert.alert("Error signing out", error.message);
     }
-  }
+  };
 
-  // const fetchCurrentUserVideos = async () => {
-  //   setIsFetching(true);
-  //   const token = await getToken();
-  //   if (!token) {
-  //     Alert.alert("Error", "No token found, user is not authenticated");
-  //     return;
-  //   }
+  const fetchCurrentUserVideos = async () => {
+    setIsFetching(true);
+    const token = await getToken();
+    if (!token) {
+      Alert.alert("Error", "No token found, user is not authenticated");
+      return;
+    }
 
-  //   try {
-  //     const response = await axios.get(
-  //       `https://videosappapi-1.onrender.com/api/v1/videos/${currentCreator.accountId}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     setCreatorPosts(response.data);
-  //   } catch (error: any) {
-  //     setIsFetching(false);
-  //     Alert.alert("Error", error.message);
-  //   } finally {
-  //     setIsFetching(false);
-  //   }
-  // };
+    try {
+      const response = await axios.get(
+        `https://videosappapi-1.onrender.com/api/v1/creator/videos`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCreatorPosts(response.data);
+      setIsFetching(false);
+    } catch (error: any) {
+      setIsFetching(false);
+      Alert.alert("Error", error.message);
+    }
+  };
 
-  // console.log(creatorPosts);
-
-  // useEffect(() => {
-  //   fetchCurrentUserVideos();
-  // }, [currentCreator]);
+  useEffect(() => {
+    fetchCurrentUserVideos();
+  }, []);
 
   return (
     <SafeAreaView className="bg-primary">
@@ -112,7 +109,7 @@ const Profile = () => {
 
                     <View className="flex flex-row space-x-7">
                       <View className="flex items-center">
-                        <Text className="text-white font-bold">50</Text>
+                        <Text className="text-white font-bold">{currentCreator.bookmarks.length}</Text>
                         <Text className="text-gray-100 font-semibold">
                           Posts
                         </Text>
@@ -130,12 +127,12 @@ const Profile = () => {
               </View>
             );
           }}
-          // refreshControl={
-          //   <RefreshControl
-          //     refreshing={isFetching}
-          //     onRefresh={fetchCurrentUserVideos}
-          //   />
-          // }
+          refreshControl={
+            <RefreshControl
+              refreshing={isFetching}
+              onRefresh={fetchCurrentUserVideos}
+            />
+          }
         />
       </View>
     </SafeAreaView>

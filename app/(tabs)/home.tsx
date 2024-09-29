@@ -15,8 +15,6 @@ import EmptyState from "@/components/emptyState";
 import axios from "axios";
 import VideoCard from "@/components/videoCard";
 import { router } from "expo-router";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StatusBar } from "expo-status-bar";
 import { useVideoContext } from "@/context";
 
 const Home = () => {
@@ -113,8 +111,6 @@ const Home = () => {
             }
           />
       </View>
-
-      <StatusBar style="light" />
     </SafeAreaView>
   );
 };
