@@ -77,8 +77,6 @@ const SignUp = () => {
     }
   };
 
-  console.log(formData)
-
   return (
     <SafeAreaView className="bg-primary ">
       <ScrollView contentContainerStyle={{ height: "100%" }}>

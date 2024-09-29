@@ -46,8 +46,9 @@ const Bookmark = () => {
                       return;
                     }
                     try {
-                      await axios.put(
+                      const response = await axios.put(
                         "https://videosappapi-1.onrender.com/api/v1/creator/clear_bookmarks",
+                        {},
                         {
                           headers: {
                             Authorization: `Bearer ${token}`,

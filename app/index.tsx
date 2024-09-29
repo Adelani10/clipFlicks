@@ -32,23 +32,17 @@ const index = () => {
           />
 
           <View className="relative">
-            <Text className="text-2xl flex relative tracking-wide font-semibold text-white text-center">
-              Discover Endless Possibilities with{" "}
-              <Text className="text-pink-600 tracking-widest text-2xl">
+            <Text className="text-2xl flex tracking-wide font-semibold text-white text-center">
+              Travel back to your favorite scene with{" "}
+              <Text className="text-pink-600 italic font-bold tracking-widest text-3xl">
                 ClipFlicks
               </Text>
             </Text>
-
-            <Image
-              source={images.path}
-              className="absolute right-0 bottom-0 border-white"
-              resizeMode="contain"
-            />
           </View>
 
           <Text className=" text-[#cdcde0] text-center ">
-            Where Nolstagia meets Innovation: Embark on a journey of limitless
-            Exploration with ClipFlicks.
+            Where Nolstagia meets Excitement: Embark on a journey of limitless
+            exploration of movies.
           </Text>
 
           <CustomButton
