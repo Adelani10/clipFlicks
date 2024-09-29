@@ -4,8 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  KeyboardAvoidingView,
-  Platform,
+  StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
 import { icons } from "@/constants";
@@ -19,7 +18,7 @@ const SearchInput = () => {
   const pathname = usePathname();
 
   return (
-    <View className="w-full mt-6 relative">
+    <View className="w-full h-14 mt-6 relative">
       <TextInput
         value={query}
         placeholder={"Search for video"}
@@ -29,7 +28,7 @@ const SearchInput = () => {
         onBlur={() => setIsFocused(false)}
         className={` ${
           isFocused ? "border-sky-400  border" : ""
-        }   w-full font-bold tracking-wider p-4 text-gray-100 bg-black-200 rounded-lg`}
+        } w-full h-full font-bold tracking-wider p-4 text-gray-100 bg-black-200 rounded-lg`}
       />
 
       <TouchableOpacity
@@ -51,7 +50,8 @@ const SearchInput = () => {
             Alert.alert("No videos", "Videos not found");
           }
         }}
-        className="w-5 absolute top-3.5 right-4 h-5"
+        className="w-5 h-5 absolute top-1/2 right-4 "
+        style={styles.customStyle}
       >
         <Image
           source={icons.search}
@@ -62,5 +62,11 @@ const SearchInput = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  customStyle: {
+    transform: [{ translateY: -10 }], 
+  },
+});
 
 export default SearchInput;

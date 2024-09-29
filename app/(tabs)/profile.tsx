@@ -75,7 +75,7 @@ const Profile = () => {
           ListEmptyComponent={() => {
             return (
               <EmptyState
-                title="No videos found with that keyword"
+                title="No videos uploaded yet"
                 subtitle="No videos found"
                 handlePress={() => {
                   router.push("/home");

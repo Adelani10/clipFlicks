@@ -24,7 +24,10 @@ export const useVideoContext = () => {
 
 const VideoProvider = ({ children }: any) => {
   const [queryResults, setQueryResults] = useState<any[]>([]);
-  const [currentCreator, setCurrentCreator] = useState<any>(null)
+  const [currentCreator, setCurrentCreator] = useState<any>({
+    username: "",
+    password: "",
+  })
   const pathname = usePathname();
 
   const getToken = async () => {

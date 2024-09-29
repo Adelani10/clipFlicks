@@ -21,7 +21,7 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [posts, setPosts] = useState<any[] | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const {getToken} = useVideoContext()
+  const {getToken, currentCreator} = useVideoContext()
 
   const fetchPosts = async () => {
 
@@ -88,8 +88,8 @@ const Home = () => {
                       <Text className="text-gray-100 text-xs">
                         Welcome Back,
                       </Text>
-                      <Text className="text-white font-bold text-xl">
-                        LaniPlayDirty
+                      <Text className="text-white capitalize font-bold text-xl">
+                        {currentCreator.username ? currentCreator.username : "Creator"}
                       </Text>
                     </View>
 
