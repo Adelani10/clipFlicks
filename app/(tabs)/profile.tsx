@@ -42,7 +42,7 @@ const Profile = () => {
 
     try {
       const response = await axios.get(
-        `https://videosappapi-1.onrender.com/api/v1/creator/videos`,
+        "https://videosappapi-1.onrender.com/api/v1/creator/videos",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -58,7 +58,9 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    fetchCurrentUserVideos();
+    if (isFetching) {
+      fetchCurrentUserVideos();
+    }
   }, []);
 
   return (
@@ -109,7 +111,11 @@ const Profile = () => {
 
                     <View className="flex flex-row space-x-7">
                       <View className="flex items-center">
-                        <Text className="text-white font-bold">{currentCreator.bookmarks.length}</Text>
+                        <Text className="text-white font-bold">
+                          {creatorPosts.length < 9
+                            ? `0${creatorPosts.length}`
+                            : creatorPosts.length}
+                        </Text>
                         <Text className="text-gray-100 font-semibold">
                           Posts
                         </Text>

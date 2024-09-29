@@ -22,7 +22,7 @@ const Bookmark = () => {
           ListEmptyComponent={() => {
             return (
               <EmptyState
-                title="No videos found with that keyword"
+                title="You haven't saved any videos yet!"
                 subtitle="No videos found"
                 handlePress={() => {
                   router.push("/home");
@@ -46,7 +46,7 @@ const Bookmark = () => {
                       return;
                     }
                     try {
-                      const response = await axios.put(
+                      await axios.put(
                         "https://videosappapi-1.onrender.com/api/v1/creator/clear_bookmarks",
                         {},
                         {
